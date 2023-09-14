@@ -1,5 +1,6 @@
+import { Role } from "./Role";
 export class User {
-    private id: number;
+    private id: number | undefined;
     private username: string;
     private password: string;
     private country: string;
@@ -8,14 +9,14 @@ export class User {
     private role: Role;
   
     constructor(
-      id: number = 0,
       username: string = "",
       password: string = "",
       country: string = "",
       firstname: string = "",
       lastname: string = "",
-      role: Role = Role.User
-    ) {
+      role: Role = Role.USER,
+      id?: number
+    ){
       this.id = id;
       this.username = username;
       this.password = password;
@@ -25,59 +26,62 @@ export class User {
       this.role = role;
     }
   
-    get getId(): number {
+    //Getters
+    getId(): number | undefined {
       return this.id;
     }
-  
-    set setId(id: number) {
+    
+    getUsername(): string{
+      return this.username;
+    }
+
+    getPassword(): string{
+      return this.password;
+    }
+
+    getCountry(): string{
+      return this.country;
+    }
+    
+    getFirstname(): string{
+      return this.firstname;
+    }
+    
+    getLastname(): string{
+      return this.lastname;
+    }
+    
+    getRole(): Role {
+      return this.role;
+    }
+
+
+    //Setters
+    setId(id: number){
       this.id = id;
     }
   
-    get getUsername(): string {
-      return this.username;
-    }
-  
-    set setUsername(username: string) {
+    setUsername(username: string){
       this.username = username;
     }
   
-    get getPassword(): string {
-      return this.password;
-    }
-  
-    set setPassword(password: string) {
+    setPassword(password: string){
       this.password = password;
     }
-  
-    get getCountry(): string {
-      return this.country;
-    }
-  
-    set setCountry(country: string) {
+
+    setCountry(country: string){
       this.country = country;
     }
-  
-    get getFirstname(): string {
-      return this.firstname;
-    }
-  
-    set setFirstname(firstname: string) {
+
+    setFirstname(firstname: string){
       this.firstname = firstname;
     }
-  
-    get getLastname(): string {
-      return this.lastname;
-    }
-  
-    set setLastname(lastname: string) {
+    
+    setLastname(lastname: string){
       this.lastname = lastname;
     }
-  
-    get getRole(): Role {
-      return this.role;
-    }
-  
-    set setRole(role: Role) {
+    
+    setRole(role: Role){
       this.role = role;
     }
   }

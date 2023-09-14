@@ -1,8 +1,9 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { stats } from "../controllers/stats";
+import { checkJwt } from "../middleware/session";
 
 const router = Router();
 
-router.get('/', stats);
+router.get('/', checkJwt, stats);
 
 export { router };

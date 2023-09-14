@@ -7,12 +7,12 @@ export class Email{
     private subject: string;
     private text: string; 
 
-    constructor( id: number = 0, 
-                        dateOfEmail: Date = new Date(), 
-                        fromEmail: string = "", 
-                        toEmail: string = "", 
-                        subject: string = "", 
-                        text: string = ""){
+    constructor(id: number = 0, 
+                dateOfEmail: Date = new Date(), 
+                fromEmail: string = "", 
+                toEmail: string = "", 
+                subject: string = "", 
+                text: string = ""){
         this.id = id;
         this.dateOfEmail = dateOfEmail;
         this.fromEmail = fromEmail;
@@ -20,51 +20,54 @@ export class Email{
         this.subject = subject;
         this.text = text;
     }
-    getId(): number {
+
+    //Getters
+    getId(): number{
         return this.id;
     }
     
-    setId(id: number) {
-        this.id = id;
-    }
-    
-     getDateOfEmail(): Date {
+    getDateOfEmail(): Date{
         return this.dateOfEmail;
     }
     
-    setDateOfEmail(dateOfEmail: Date) {
-        this.dateOfEmail = dateOfEmail;
-    }
-    
-    getFromEmail(): string {
+    getFromEmail(): string{
         return this.fromEmail;
     }
     
-    setFromEmail(fromEmail: string) {
-        this.fromEmail = fromEmail;
-    }
-    
-    getToEmail(): string {
+    getToEmail(): string{
         return this.toEmail;
     }
     
-    setToEmail(toEmail: string) {
-        this.toEmail = toEmail;
-    }
-    
-    getSubject(): string {
+    getSubject(): string{
         return this.subject;
     }
     
-    setSubject(subject: string) {
-        this.subject = subject;
-    }
-    
-    getText(): string {
+    getText(): string{
         return this.text;
     }
-    
-    setText(text: string) {
+
+    //Setters
+    setId(id: number){
+        this.id = id;
+    }
+
+    setDateOfEmail(dateOfEmail: Date){
+        this.dateOfEmail = dateOfEmail;
+    }
+
+    setFromEmail(fromEmail: string){
+        this.fromEmail = fromEmail;
+    }
+
+    setToEmail(toEmail: string){
+        this.toEmail = toEmail;
+    }
+        
+    setSubject(subject: string){
+        this.subject = subject;
+    }
+        
+    setText(text: string){
         this.text = text;
     }
 }
