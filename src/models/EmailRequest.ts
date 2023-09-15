@@ -1,7 +1,4 @@
-
-export class Email{
-    id: number | undefined;
-    dateOfEmail: Date;
+export class EmailRequest{
     fromEmail: string;
     toEmail: string;
     subject: string;
@@ -10,11 +7,7 @@ export class Email{
     constructor(fromEmail: string = "", 
                 toEmail: string = "", 
                 subject: string = "", 
-                text: string = "",
-                dateOfEmail: Date = new Date(),
-                id?: number){
-        this.id = id;
-        this.dateOfEmail = dateOfEmail;
+                text: string = ""){
         this.fromEmail = fromEmail;
         this.toEmail = toEmail;
         this.subject = subject;

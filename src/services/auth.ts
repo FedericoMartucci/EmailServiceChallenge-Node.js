@@ -6,26 +6,28 @@ import { findByUsername, saveUser } from "../repositories/user";
 import { User } from "../models/User";
 import { AuthResponse } from "../models/AuthResponse";
 
-const register = async (request: RegisterRequest) => {
+const register = async (request: RegisterRequest): Promise<string> => {
     
-    const checkIs = await findByUsername(request.getUsername());
-    if (checkIs.getId() !== undefined) return "ALREADY_USER";
-    const hashedPassword = await encrypt(request.getPassword());
-    const register = await saveUser(new User(request.getUsername(),
+    const checkIs: User | null = await findByUsername(request.username);
+    console.log(checkIs);
+    if (checkIs !== null) return "ALREADY_USER";
+    const hashedPassword = await encrypt(request.password);
+    const register = await saveUser(new User(request.username,
                                             hashedPassword,
-                                            request.getCountry(),
-                                            request.getFirstname(),
-                                            request.getLastname()));
+                                            request.country,
+                                            request.firstname,
+                                            request.lastname));
     return "SUCCESSFUL_REGISTER";
   };
   
-  const login = async (request: LoginRequest) => {
-    const checkIs = await findByUsername(request.getUsername());
-    if (checkIs.getId() === undefined) return "NONEXISTENT_USER";
-    const hashedPassword = checkIs.getPassword();
-    const isCorrect = await verify(request.getPassword(), hashedPassword);
+  const login = async (request: LoginRequest): Promise<string | AuthResponse> => {
+    const checkIs: User | null = await findByUsername(request.username);
+    console.log(checkIs);
+    if (checkIs === null) return "NONEXISTENT_USER";
+    const hashedPassword = checkIs.password;
+    const isCorrect = await verify(request.password, hashedPassword);
     if (!isCorrect) return "INCORRECT_PASSWORD";
-    return new AuthResponse(generateToken(request.getUsername()));
+    return new AuthResponse(generateToken(checkIs.role));
   };
 
 export { register, login };

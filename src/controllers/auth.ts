@@ -3,7 +3,7 @@ import { register, login } from "../services/auth";
 import { LoginRequest } from "../models/LoginRequest";
 import { RegisterRequest } from "../models/RegisterRequest";
 
-const registerController = async ({body}: Request, res: Response) => {
+const registerController = async ({body}: Request, res: Response): Promise<void> => {
     const { username, password, firstname, lastname, country } = body;
     const userResponse = await register(new RegisterRequest(username, password, firstname, lastname, country));
     if(userResponse === 'ALREADY_USER') {
@@ -14,7 +14,7 @@ const registerController = async ({body}: Request, res: Response) => {
         res.send(userResponse);
 };
 
-const loginController = async ({body}: Request, res: Response) => {
+const loginController = async ({body}: Request, res: Response): Promise<void> => {
     const { username, password } = body;
     const userResponse = await login(new LoginRequest(username, password));
     if (userResponse === 'INCORRECT_PASSWORD'){

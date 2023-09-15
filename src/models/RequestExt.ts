@@ -1,6 +1,7 @@
 import { JwtPayload } from "jsonwebtoken";
 import { Request } from "express";
+import { Role } from "./Role";
 
 export interface RequestExt extends Request {
-  user?: JwtPayload | { username: string };
+  role?: { role: Role } | JwtPayload ;
 }

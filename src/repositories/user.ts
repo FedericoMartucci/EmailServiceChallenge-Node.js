@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function findByUsername(username: string): Promise<User> {
+async function findByUsername(username: string): Promise<User | null> {
     try {
 
     const result = await prisma.user.findFirstOrThrow({
@@ -26,7 +26,7 @@ async function findByUsername(username: string): Promise<User> {
     const role: Role = result.role as Role; 
     return new User(result.username, result.password, result.country || '', result.firstname || '', result.lastname || '', role, result.id);
   } catch (error) {
-    return new User();
+    return null;
   } finally {
     await prisma.$disconnect();
   }
@@ -36,11 +36,11 @@ async function saveUser(user: User) {
     try {
     const result = await prisma.user.create({
         data: {
-            username: user.getUsername(),
-            password: user.getPassword(),
-            country: user.getCountry(),
-            firstname: user.getFirstname(),
-            lastname: user.getLastname(),
+            username: user.username,
+            password: user.password,
+            country: user.country,
+            firstname: user.firstname,
+            lastname: user.lastname,
         }
     });
   } catch (error) {
