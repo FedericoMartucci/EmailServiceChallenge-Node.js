@@ -1,20 +1,24 @@
 import { EmailRequest } from "../models/EmailRequest";
 import { Email } from "../models/Email";
 import { isQuotaExceeded, saveEmail } from "../repositories/email";
+import { sendWithMailjet } from "../providers/mailjet";
+import { sendWithMailgun } from "../providers/mailgun";
 
 const sendEmail = async (request: EmailRequest): Promise<string> => {
+  if(request.emptyParameters()) return "PARAMETERS_MISSING";
   const emailsSent: boolean = await isQuotaExceeded(request.fromEmail);
-    if(emailsSent) return "QUOTA_EXCEEDED";
-    //TODO implement email providers
-    // try{
-    //     sendWithMailjet(request);
-    // }catch(err){
-    //     try{
-    //         sendWithMailgun(request);
-    //     }catch(err){
-    //         return "ERROR_SENDING_EMAIL";
-    //     }
-    // }
+  if(emailsSent) return "QUOTA_EXCEEDED";
+       try{
+            await sendWithMailjet(request);
+       }catch(err){
+          console.log(err);
+          try{
+              await sendWithMailgun(request);
+          }catch(err){
+              console.log(err);
+              throw err;
+          }
+        }
     saveEmail(new Email(request.fromEmail, request.toEmail, request.subject, request.text));
     return "EMAIL_SENT";
 };

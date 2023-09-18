@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { StatsUser } from "../models/StatsUser";
-import { EmailRequest } from "../models/EmailRequest";
 import { Email } from "../models/Email";
 
 const prisma = new PrismaClient();
@@ -69,7 +68,7 @@ async function isQuotaExceeded(userEmail: string): Promise<boolean>{
         },
       },
     });
-    if(result.length > 1000)
+    if(result.length + 1 > 1000)
       return true;
     return false;
   } catch (error) {

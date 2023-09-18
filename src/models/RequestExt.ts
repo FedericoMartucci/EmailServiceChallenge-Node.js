@@ -4,4 +4,5 @@ import { Role } from "./Role";
 
 export interface RequestExt extends Request {
   role?: { role: Role } | JwtPayload ;
+  user?: string | JwtPayload;
 }

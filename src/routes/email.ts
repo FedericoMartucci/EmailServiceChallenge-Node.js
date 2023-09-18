@@ -4,6 +4,6 @@ import { emailController } from "../controllers/email";
 
 const router = Router();
 
-router.post("/email", checkJwt('USER'), emailController);
+router.post("/send", checkJwt('USER'), emailController);
 
 export { router };

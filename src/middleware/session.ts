@@ -1,20 +1,18 @@
 import { NextFunction, Response } from "express";
-import { verifyToken } from "../utils/jwt.handle";
+import { getToken, verifyToken } from "../utils/jwt.handle";
 import { RequestExt } from "../models/RequestExt";
 import { Role } from "../models/Role";
 import { JwtPayload } from "jsonwebtoken";
 const checkJwt = (allowedRole: string): any => {
     return (req: RequestExt, res: Response, next: NextFunction): void => {
         try{
-            const jwtByUser = req.headers.authorization || '';
-            const jwt = jwtByUser.split(' ').pop();
-
+            const jwt = getToken(req);
             if(!jwt){
                 res.status(401);
                 res.send("NO_TOKEN_PROVIDED");
                 return;
             }
-            const payload: JwtPayload = verifyToken(`${jwt}`) as { role: Role };
+            const payload: JwtPayload | string = verifyToken(`${jwt}`) as { role: Role };
             if (payload && (payload.role === allowedRole || payload.role === 'ADMIN')) {
                 next();
               } else {

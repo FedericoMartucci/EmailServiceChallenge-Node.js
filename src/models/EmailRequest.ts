@@ -14,4 +14,8 @@ export class EmailRequest{
         this.text = text;
     }
 
+    emptyParameters(): boolean{
+        return this.fromEmail == "" || this.toEmail == "" || this.subject == "" || this.text == "";
+    }
+
 }

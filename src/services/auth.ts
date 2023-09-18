@@ -22,12 +22,11 @@ const register = async (request: RegisterRequest): Promise<string> => {
   
   const login = async (request: LoginRequest): Promise<string | AuthResponse> => {
     const checkIs: User | null = await findByUsername(request.username);
-    console.log(checkIs);
     if (checkIs === null) return "NONEXISTENT_USER";
     const hashedPassword = checkIs.password;
     const isCorrect = await verify(request.password, hashedPassword);
     if (!isCorrect) return "INCORRECT_PASSWORD";
-    return new AuthResponse(generateToken(checkIs.role));
+    return new AuthResponse(generateToken(checkIs.role, checkIs.username));
   };
 
 export { register, login };
