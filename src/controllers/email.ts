@@ -9,7 +9,7 @@ const emailController = async (req: Request, res: Response): Promise<void> => {
         const { toEmail, subject, text } = req.body;
         const fromEmail: string | undefined  = getUsernameFromToken(req);
         const emailResponse: string = await sendEmail(new EmailRequest(fromEmail, toEmail, subject, text));
-        if (emailResponse === 'QUOTA_EXCEEDED' || emailResponse === 'PARAMETERS_MISSING') {
+        if (emailResponse === 'QUOTA_EXCEEDED') {
             res.status(403);
             res.send(emailResponse);
         } else {

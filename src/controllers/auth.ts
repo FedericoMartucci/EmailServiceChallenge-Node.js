@@ -2,6 +2,7 @@ import { Request, Response} from "express";
 import { register, login } from "../services/auth";
 import { LoginRequest } from "../models/LoginRequest";
 import { RegisterRequest } from "../models/RegisterRequest";
+import { isObjectEmpty } from "../utils/error.handle";
 
 const registerController = async ({body}: Request, res: Response): Promise<void> => {
     const { username, password, firstname, lastname, country } = body;

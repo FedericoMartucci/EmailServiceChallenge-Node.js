@@ -4,4 +4,11 @@ const handleHttp = (res: Response, error: string) => {
     res.send({ error });
 };
 
-export { handleHttp };
+const isObjectEmpty = (objectName: any): boolean => {
+    return (
+      objectName &&
+      Object.keys(objectName).length === 0 &&
+      objectName.constructor === Object
+    );
+};
+export { handleHttp, isObjectEmpty };

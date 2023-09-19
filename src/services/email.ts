@@ -5,7 +5,6 @@ import { sendWithMailjet } from "../providers/mailjet";
 import { sendWithMailgun } from "../providers/mailgun";
 
 const sendEmail = async (request: EmailRequest): Promise<string> => {
-  if(request.emptyParameters()) return "PARAMETERS_MISSING";
   const emailsSent: boolean = await isQuotaExceeded(request.fromEmail);
   if(emailsSent) return "QUOTA_EXCEEDED";
        try{
