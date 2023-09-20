@@ -1,8 +1,6 @@
 import { User } from "../models/User";
 import { Role } from "../models/Role";
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from "../app";
 
 async function findByUsername(username: string): Promise<User | null> {
     try {
@@ -32,7 +30,7 @@ async function findByUsername(username: string): Promise<User | null> {
   }
 }
 
-async function saveUser(user: User) {
+async function saveUser(user: User): Promise<number> {
     try {
     const result = await prisma.user.create({
         data: {
@@ -43,6 +41,7 @@ async function saveUser(user: User) {
             lastname: user.lastname,
         }
     });
+    return result.id
   } catch (error) {
     throw error;
   } finally {

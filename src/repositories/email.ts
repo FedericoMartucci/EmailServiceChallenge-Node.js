@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../app";
 import { StatsUser } from "../models/StatsUser";
 import { Email } from "../models/Email";
 
-const prisma = new PrismaClient();
 async function getStats(): Promise<StatsUser[]> {
     try {
     const emailCounts = new Map<string, number>();
@@ -21,10 +20,12 @@ async function getStats(): Promise<StatsUser[]> {
         const fromEmail = email.fromEmail;
         emailCounts.set(fromEmail, (emailCounts.get(fromEmail) || 0) + 1);
     }
-
+    console.log(currentDate);
+    console.log(new Date(currentDate.getTime() + 86400000));
     const stats: StatsUser[] = Array.from(emailCounts.entries()).map(([fromEmail, emailsSent]) =>
       new StatsUser(fromEmail, emailsSent)
     );
+
   
     return stats;
   } catch (error) {

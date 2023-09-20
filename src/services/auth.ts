@@ -9,7 +9,6 @@ import { AuthResponse } from "../models/AuthResponse";
 const register = async (request: RegisterRequest): Promise<string> => {
     
     const checkIs: User | null = await findByUsername(request.username);
-    console.log(checkIs);
     if (checkIs !== null) return "ALREADY_USER";
     const hashedPassword = await encrypt(request.password);
     const register = await saveUser(new User(request.username,

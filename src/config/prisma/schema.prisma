@@ -19,7 +19,7 @@ model User {
 
 model Email {
   id          Int       @id @default(autoincrement())
-  dateOfEmail DateTime  @default(now()) @db.Date()
+  dateOfEmail DateTime  @default(now())
   fromEmail   String    @db.VarChar(40)
   toEmail     String    @db.VarChar(40)
   subject     String    @db.VarChar(40)
