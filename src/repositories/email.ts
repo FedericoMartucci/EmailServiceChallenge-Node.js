@@ -35,7 +35,7 @@ async function getStats(): Promise<StatsUser[]> {
   }
 }
 
-async function saveEmail(email: Email) {
+async function saveEmail(email: Email): Promise<number> {
     try {
     const result = await prisma.email.create({
         data: {
@@ -46,6 +46,7 @@ async function saveEmail(email: Email) {
             dateOfEmail: email.dateOfEmail,
         }
     });
+    return result.id;
   } catch (error) {
     throw error;
   } finally {

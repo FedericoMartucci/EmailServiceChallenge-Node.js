@@ -2,7 +2,7 @@ import { findByUsername, saveUser } from '../../src/repositories/user';
 import { prisma, server } from '../../src/app';
 import { User } from '../../src/models/User';
 import { insertFakeUser } from '../utils/functions.utils';
-import { Role } from '../../src/models/Role';
+
 
 beforeAll(async () => {
     await prisma.email.deleteMany();
@@ -33,12 +33,6 @@ describe('saveUser', () => {
     
     expect(typeof result).toBe('number');
   });
-
-//   test('It should throw an error when saving fails', async () => {
-//     const user = new User('testuser3', 'testpassword', 'Argentina', 'Test', 'User');
-
-//     expect(() => saveUser(user)).toThrow(Error);
-//   });
 });
 
 afterAll(async () => {
