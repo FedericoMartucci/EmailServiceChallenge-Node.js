@@ -10,14 +10,14 @@ beforeAll(async () => {
 });
 
 describe('findByUsername', () => {
-  test('It should return a user when found by username', async () => {
+  test('It should return a user when found by username.', async () => {
     await insertFakeUser();
     const result = await findByUsername('testuser');
 
     expect(result?.username).toBe('testuser');
   });
 
-  test('It should return null when user is not found', async () => {
+  test('It should return null when user is not found.', async () => {
 
     const result = await findByUsername('nonexistentUser');
     
@@ -26,7 +26,7 @@ describe('findByUsername', () => {
 });
 
 describe('saveUser', () => {
-  test('It should save a user', async () => {
+  test('It should save a user.', async () => {
     const user = new User('testuser2', 'testpassword', 'Argentina', 'Test', 'User');
 
     const result = await saveUser(user);

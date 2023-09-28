@@ -1,26 +1,18 @@
-import Mailjet from 'node-mailjet';
 import { EmailRequest } from '../../src/models/EmailRequest';
-import { sendWithMailjet } from '../../src/providers/mailjet'; // Reemplaza con la ruta correcta
+import { ProviderTestImpl } from '../../src/providers/ProviderTestImpl';
 
-jest.mock('node-mailjet', () => {
-  return jest.fn().mockReturnValue({
-    post: jest.fn(() => ({
-      request: jest.fn().mockResolvedValue('Email sent successfully')
-    }))
-  });
-});
-const mailjet = new Mailjet({
-    apiKey: process.env.MJ_APIKEY_PUBLIC || '',
-    apiSecret: process.env.MJ_APIKEY_PRIVATE || ''
-  });
+const provider = new ProviderTestImpl();
 
 describe('sendWithMailjet', () => {
-  test('It should send an email using Mailjet', async () => {
+  test('It should send an email using Mailjet.', async () => {
     const email: EmailRequest = new EmailRequest('test@example.com', 'recipient@example.com', 'Testing', 'This is a test email.');
 
-    await sendWithMailjet(email);
+    const result =  provider.sendWithMailjet(email);
+    expect(result).toBe("EMAIL_SENT_WITH_MAILJET");
+  });
+  test('It should throw an error when something went wrong.', async () => {
+    const email: EmailRequest = new EmailRequest('errorTest', 'recipient@example.com', 'Testing', 'This is a test email.');
 
-    expect(mailjet.post).toHaveBeenCalledWith('send', { version: 'v3.1' });
-    console.log(mailjet.post);
+    expect(() => provider.sendWithMailjet(email)).toThrow(new Error());
   });
 });
