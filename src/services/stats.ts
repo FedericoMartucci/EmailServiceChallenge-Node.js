@@ -1,8 +1,9 @@
 import { StatsUser } from "../models/StatsUser";
-import { getStats } from "../repositories/email";
+import { EmailRepositoryImpl } from "../repositories/EmailRepositoryImpl";
 
 const stats = async (): Promise<string | StatsUser[]> => {
-  const statsUser = await getStats();
+  const emailRepository = new EmailRepositoryImpl();
+  const statsUser = await emailRepository.getStats();
   if (!statsUser.length) return "NO_EMAILS_SENT_TODAY";
   return statsUser;
 };

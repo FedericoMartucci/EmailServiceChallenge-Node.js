@@ -3,8 +3,6 @@ import request from "supertest";
 import { Role } from "../../src/models/Role";
 import { generateToken } from "../../src/utils/jwt.handle";
 import { insertFakeEmailsReachingQuota } from "../utils/functions.utils";
-import { sendEmail } from "../../src/services/email";
-import { EmailRequest } from "../../src/models/EmailRequest";
 
 beforeAll(async () => {
     await prisma.email.deleteMany();
